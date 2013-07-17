@@ -25,11 +25,11 @@
 						     
                                 $(json.indicators).each(function(i, data)
                                 {
-									  indic=indic+1;
-								   var indid=data.id;
-								    var indname=data.name;
+					indic=indic+1;
+					var indid=data.id;
+					var indname=data.name;
                                 	theId=data.href;
-								     IndArray.push(data.name);  
+					IndArray.push(data.name);  
 					       
 			
        
@@ -48,8 +48,8 @@
 		 $("#results").html("");
 		 $("#child").html("");
 		 		 $("#results").append("<h1>MAPS </h1>");
-			  $("#results").append("<h2>ambazo zimetumiwa </h2>");
-			 $("#child").append("<h2>hajizatumiwa</h2>");
+			  $("#results").append("<h2>Used elements </h2>");
+			 $("#child").append("<h2>Unused elements</h2>");
 				         $.get('../api/mapViews'+'.json', function(json)
                         {
 					
@@ -57,7 +57,7 @@
 		$(json.mapViews).each(function(i, data){
 	              var chartid=data.id;
 				  var charthref=data.href;
-				  var parcent=0;
+				  var number=0;
 				  
 			 $.get("../api/mapViews/"+data.id+".json", function(map) {
 				 
@@ -92,16 +92,16 @@
                      /*  alert("map"+MapArray.valueOf()); 	
 						alert("ind"+IndArray.valueOf()); 
 						alert("notused"+notused.valueOf());	*/
-						parcentnot=((notused.length/IndArray.length)*100); 
-						parcentused=(( MapArray.length/IndArray.length)*100); 
+						numbernot=((notused.length/IndArray.length)*100); 
+						numberused=(( MapArray.length/IndArray.length)*100); 
 						$.each(notused,function( intIndex, objValue ){	
 					var anchor = $("<p class='blue' ></p>").append(objValue);
                                         
                                         $("#child").append(anchor);		
 											
 						});
-						 $("#child").append("Pacentage not used=>"+parcentnot);	
-						 $("#results").append("Pacentage Used=>"+parcentused);	 
+						 $("#child").append("Pacentage not used=>"+numbernot);	
+						 $("#results").append("Pacentage Used=>"+numberused);	 
                 });				
 	}   
 function Charts()
@@ -112,8 +112,8 @@ function Charts()
 		 $("#results").html("");
 		 $("#child").html("");
 		 		 $("#results").append("<h1>CHARTS</h1>");
-			  $("#results").append("<h2>USED </h2>");
-			 $("#child").append("<h2>NOT USED</h2>");
+			  $("#results").append("<h2>Used elements </h2>");
+			 $("#child").append("<h2>Unused elements</h2>");
 		
 			kip=  $.get('../api/charts/query/'+'.json', function(json)
                         {
@@ -144,19 +144,17 @@ function Charts()
 		});
 					    });
 				$(document).ajaxStop(function() {
-                     /*  alert("map"+MapArray.valueOf()); 	
-						alert("ind"+IndArray.valueOf()); 
-						alert("notused"+notused.valueOf());	*/
-						parcentnot=((notused.length/IndArray.length)*100); 
-						parcentused=(( chartArray .length/IndArray.length)*100); 
+                     
+						numbernot=((notused.length/IndArray.length)*100); 
+						numberused=(( chartArray .length/IndArray.length)*100); 
 						$.each(notused,function( intIndex, objValue ){	
 					var anchor = $("<p class='blue' ></p>").append(objValue);
                                         
                                         $("#child").append(anchor);		
 											
 						});
-						 $("#child").append("Pacentage not used=>"+parcentnot);	
-						 $("#results").append("Pacentage Used=>"+parcentused);	 
+						 $("#child").append("Pacentage not used=>"+numbernot);	
+						 $("#results").append("Pacentage Used=>"+numberused);	 
                 });		
 		
 						
