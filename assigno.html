@@ -1,0 +1,92 @@
+<style type="text/css" media="screen">
+p{color:blue;text-decoration:underline;cursor:pointer;}
+
+/* Put your CSS styling here */
+</style>
+<script type="text/javascript">
+	   var theId;	
+	function printIt()
+	{
+	   	$.get(theId+'.json',function(data)
+	   	{
+	   	    $(json.indicatorGroups).each(function(i, data)
+                                {
+                                        var anchor = $("<p onclick='javascript:printIt()'></p>").append(data.name);
+                                        $("#child").append(anchor);
+                                });
+	   	});
+	}   	
+        $(document).ready(function(){
+                
+                $("#search").keyup(function(){
+                        $("#results").html("");
+                        $("#child").html("");
+                        $.get('../api/indicatorGroups/query/'+$(this).val()+'.json', function(json)
+                        {
+                                $(json.indicatorGroups).each(function(i, data)
+                                {
+                                        var anchor = $("<p onclick='javascript:printIt()'></p>").append(data.name);
+                                        theId=data.href;
+                                        $("#results").append(anchor);   
+                                });
+                        });
+                });                                
+        });
+</script>
+<div style="float:left;height:100%;">
+<label for="search">Search Criteria</label>
+<input type="text" id="search" class="search" />
+<div id="results"></div>
+</div>
+<style type="text/css" media="screen">
+#links{color:blue;text-decoration:underline;cursor:pointer;}
+/* Put your CSS styling here */
+</style>
+<script type="text/javascript">
+	   var theId;	
+	function printIt()
+	{
+		$("#child").html("");	
+	   	$.get(theId+'.json',function(json)
+	   	{ 
+	   	    $(json.indicators).each(function(i, data)
+                                {
+                                        var anchor = $("<p onclick='javascript:more(json.description)'></p>").html(data.name);
+                                        theId=data.href;
+                                        $("#child").append(anchor);
+                                });
+	   	});
+	}   
+	   	
+        $(document).ready(function(){
+                
+                $("#search").keyup(function(){
+                        $("#results").html("");
+                        $("#child").html("");
+                        $.get('../api/indicatorGroups/query/'+$(this).val()+'.json', function(json)
+                        {
+                                $(json.indicatorGroups).each(function(i, data)
+                                {
+                                        var anchor = $("<p id='links' onclick='javascript:printIt()'></p>").append(data.name);
+                                        theId=data.href;
+                                        $("#results").append(anchor);
+                                        
+                                });
+                        });
+                        
+                });
+                
+                
+        });
+</script>
+
+
+<div style="float:left;height:100%;">
+<label for="search">Search Criteria</label>
+<input type="text" id="search" class="search" />
+<div id="results"></div>
+</div>
+
+<div id="child" style="position:absolute;left:50%;">
+</div>
+
